@@ -14,3 +14,10 @@ responses = []
 def render_home():
     """Show user the survey title and instructions with a start button"""
     return render_template("home.html", survey=satisfaction_survey)
+
+@app.route("/questions/<int:question_id>")
+def show_question(question_id):
+    """Show current question with choices"""
+    survey=satisfaction_survey
+    current_question = survey.questions[question_id]
+    return render_template("question.html", survey = survey, question = current_question)
