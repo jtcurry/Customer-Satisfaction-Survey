@@ -28,5 +28,13 @@ def handle_answer():
     """Add answer to response list and rediect to next question"""
     answer = request.form["answer"]
     responses.append(answer)
-    return redirect(f"/questions/{len(responses)}")
+    if (len(responses) == len(satisfaction_survey.questions)):
+        return redirect("/thanks")
+    else:
+        return redirect(f"/questions/{len(responses)}")
     
+@app.route("/thanks")
+def render_thankyou():
+    """Show thank you page when all questions are answered"""
+    survey = satisfaction_survey
+    return render_template("thanks.html", survey = survey)
