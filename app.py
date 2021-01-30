@@ -1,9 +1,10 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 from surveys import *
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "newKey"
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
 
 
@@ -21,3 +22,11 @@ def show_question(question_id):
     survey=satisfaction_survey
     current_question = survey.questions[question_id]
     return render_template("question.html", survey = survey, question = current_question)
+
+@app.route("/answer", methods=["POST"])
+def handle_answer():
+    """Add answer to response list and rediect to next question"""
+    answer = request.form["answer"]
+    responses.append(answer)
+    return redirect(f"/questions/{len(responses)}")
+    
