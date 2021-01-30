@@ -16,12 +16,20 @@ def render_home():
     """Show user the survey title and instructions with a start button"""
     return render_template("home.html", survey=satisfaction_survey)
 
+
 @app.route("/questions/<int:question_id>")
 def show_question(question_id):
     """Show current question with choices"""
-    survey=satisfaction_survey
+    survey = satisfaction_survey
+    if (responses is None):
+        return redirect("/")
+    if (len(responses) >= len(satisfaction_survey.questions)):
+        return redirect("/thanks")
+    if (len(responses) != question_id):
+        return redirect(f"/questions/{len(responses)}")
     current_question = survey.questions[question_id]
-    return render_template("question.html", survey = survey, question = current_question)
+    return render_template("question.html", survey=survey, question=current_question)
+
 
 @app.route("/answer", methods=["POST"])
 def handle_answer():
@@ -32,9 +40,10 @@ def handle_answer():
         return redirect("/thanks")
     else:
         return redirect(f"/questions/{len(responses)}")
-    
+
+
 @app.route("/thanks")
 def render_thankyou():
     """Show thank you page when all questions are answered"""
     survey = satisfaction_survey
-    return render_template("thanks.html", survey = survey)
+    return render_template("thanks.html", survey=survey)
