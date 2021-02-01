@@ -11,7 +11,15 @@ debug = DebugToolbarExtension(app)
 @app.route("/")
 def render_home():
     """Show user the survey title and instructions with a start button"""
-    return render_template("home.html", survey=satisfaction_survey)
+    return render_template("home.html", surveys=surveys)
+
+
+@app.route("/instructions")
+def show_instructions():
+    survey_choice = request.args.get("survey_title")
+    session["survey_choice"] = survey_choice
+    survey = surveys[survey_choice]
+    return render_template("instructions.html", survey=survey)
 
 
 @app.route("/start", methods=["POST"])
@@ -24,8 +32,9 @@ def start_survey():
 @app.route("/questions/<int:question_id>")
 def show_question(question_id):
     """Show current question with choices"""
-    survey = satisfaction_survey
     responses = session.get("responses")
+    survey_choice = session.get("survey_choice")
+    survey = surveys[survey_choice]
     if (responses is None):
         return redirect("/")
     if (len(responses) >= len(survey.questions)):
@@ -47,7 +56,9 @@ def handle_answer():
     responses.append(answer)
     session["responses"] = responses
 
-    if (len(responses) == len(satisfaction_survey.questions)):
+    survey_choice = session.get("survey_choice")
+    survey = surveys[survey_choice]
+    if (len(responses) == len(survey.questions)):
         return redirect("/thanks")
     else:
         return redirect(f"/questions/{len(responses)}")
@@ -56,5 +67,6 @@ def handle_answer():
 @app.route("/thanks")
 def render_thankyou():
     """Show thank you page when all questions are answered"""
-    survey = satisfaction_survey
+    survey_choice = session.get("survey_choice")
+    survey = surveys[survey_choice]
     return render_template("thanks.html", survey=survey)
