@@ -52,8 +52,9 @@ def handle_answer():
 
     # ----> Is there a simpler solution for the following code? Why rebind?
     answer = request.form["answer"]
+    comment = request.form.get("comment", "")
     responses = session["responses"]
-    responses.append(answer)
+    responses.append({"answer": answer, "comment": comment})
     session["responses"] = responses
 
     survey_choice = session.get("survey_choice")
@@ -69,4 +70,5 @@ def render_thankyou():
     """Show thank you page when all questions are answered"""
     survey_choice = session.get("survey_choice")
     survey = surveys[survey_choice]
-    return render_template("thanks.html", survey=survey)
+    responses = session.get("responses")
+    return render_template("thanks.html", survey=survey, responses=responses)
