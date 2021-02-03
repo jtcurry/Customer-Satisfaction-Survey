@@ -3,14 +3,18 @@
 {% block title %}Thank you!{% endblock %}
 
 {% block content %}
-<h2>Thank you for completing the {{survey.title}}</h2>
-<h3>Here are your submitted answers:</h3>
+<div id="mainwrapper">
+  <h1>Thank you for completing the {{survey.title}}</h1>
+  <div id = "responsewrapper">
+  <h3>Here are your submitted answers:</h3>
 
-<ul>
-  {% for question in survey.questions %}
-  <li><b>{{question.question}}</b> {{responses[loop.index0]["answer"]}} <i>{{responses[loop.index0]["comment"]}}</i>
-  </li>
-  {% endfor %}
-</ul>
-
+  <ul>
+    {% for question in survey.questions %}
+    <li><b>{{question.question}}</b> {{responses[loop.index0]["answer"]}} <i>{{responses[loop.index0]["comment"]}}</i>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+  <footer>Flask Survey</footer>
+</div>
 {% endblock %}

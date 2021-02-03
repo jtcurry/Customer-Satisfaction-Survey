@@ -3,9 +3,9 @@
 {% block title %}Survey{% endblock %}
 
 {% block content %}
-<h1>Flask Survey</h1>
+<h1 id="maintitle">Flask Survey <i class="fas fa-clipboard-list"></i></h1>
 
-<form action="/instructions">
+<form id="surveyselect" action="/instructions">
   <select name="survey_title">
     {% for name, survey in surveys.items() %}
     <option value="{{name}}">{{survey.title}}</option>

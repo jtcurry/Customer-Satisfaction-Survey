@@ -1,0 +1,94 @@
+body {
+  background-color: #eeeeee;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+}
+
+#maintitle {
+  margin-top: 3em;
+  font-family: "Architects Daughter", cursive;
+  font-size: 4em;
+}
+
+.fas {
+  color: rgb(91, 185, 154);
+}
+
+select {
+  font-size: 1em;
+  padding: 0.5em;
+  margin-right: 2em;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+select:focus {
+  outline: none;
+}
+
+button {
+  border-radius: 8px;
+  text-decoration: none;
+  padding: 8px;
+  outline: none;
+  background-color: #eeeeee;
+  border: 2px solid rgb(91, 185, 154);
+  color: rgb(91, 185, 154);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#question button {
+  display: block; 
+  margin: 0 auto
+}
+
+button:hover {
+  background-color: rgb(91, 185, 154);
+  border: 2px solid rgb(91, 185, 154);
+  color: #eeeeee;
+}
+
+footer {
+  position: fixed;
+  background-color: rgb(91, 185, 154);
+  height: 2em;
+  bottom: 0;
+  width: 100%;
+  padding-right: 2em;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #eeeeee;
+  font-family: "Architects Daughter", cursive;
+}
+
+#mainwrapper {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(91, 185, 154);
+  color: #eeeeee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#mainwrapper h1 {
+  text-align: center;
+}
+
+#responsewrapper {
+  margin-top: 4em;
+  color: black;
+}
+
+@media only screen and (max-width: 650px) {
+  body{
+    font-size: 14px;
+  }
+}
